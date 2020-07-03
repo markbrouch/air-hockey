@@ -1,7 +1,6 @@
-import React from 'react';
+import { initializeApollo } from '../lib/apollo/client';
 import Head from '../components/head';
 import PlayerTable from '../components/playerTable';
-import { withApollo } from '../lib/apollo';
 
 const Home = () => {
   return (
@@ -12,4 +11,4 @@ const Home = () => {
   );
 };
 
-export default withApollo({ ssr: true })(Home);
+export default Home;
