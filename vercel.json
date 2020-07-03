@@ -1,0 +1,7 @@
+{
+  "env": {
+    "GOOGLE_SPREADSHEET_ID": "@google-spreadsheet-id",
+    "GOOGLE_PRIVATE_KEY": "@google-private-key",
+    "GOOGLE_SERVICE_ACCOUNT_EMAIL": "@google-service-account-email"
+  }
+}

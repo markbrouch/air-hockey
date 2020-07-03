@@ -19,6 +19,6 @@ yarn-error.log*
 
 # Environment Variables
 .env
-.env.build
+google-service-account.json
 
 .vercel
