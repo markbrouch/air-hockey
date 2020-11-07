@@ -3,7 +3,17 @@ import { v4 as uuid } from 'uuid';
 export const resolvers = {
   Query: {
     allPlayers: async (parent, args, { db }) => {
-      return await db.sheetsById[0].getRows();
+      const rows = await db.sheetsById[0].getRows();
+      
+      rows.forEach(row => {
+        if (!row.id) {
+          row.id = uuid()
+
+          row.save()
+        }
+      })
+
+      return rows
     },
   },
   Mutation: {
