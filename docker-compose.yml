@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  db:
+    container_name: air-hockey-db
+    build: ./db
+    volumes:
+      - ./db/scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_PASSWORD: password
+  api:
+    container_name: air-hockey-api
+    build: ./api
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 8080 -b '0.0.0.0'"
+    volumes:
+      - ./api:/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
