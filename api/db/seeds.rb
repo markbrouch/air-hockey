@@ -15,7 +15,6 @@ CSV.foreach(Rails.root.join('lib/seeds/users.csv'), headers: true) do |row|
     user.email = row['email']
     user.profile_photo = row['image']
     user.access = row['access']
-    user.save
 
     puts "#{user.email} saved"
   end
