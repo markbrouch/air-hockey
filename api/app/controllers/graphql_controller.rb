@@ -1,10 +1,28 @@
+# frozen_string_literal: true
+
 class GraphqlController < ApplicationController
   # If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
 
+  def auth_token
+    return unless auth_header
+
+    jwt = auth_header.split(' ')[1]
+    AuthToken.find_by_jwt(jwt)
+  end
+
+  def current_user
+    return unless auth_token
+
+    auth_token.user
+  end
+
   def execute
+    auth_token&.update(last_ip: request.remote_ip, user_agent: request.env['HTTP_USER_AGENT'])
+    auth_token&.touch(:last_accessed_at)
+
     variables = prepare_variables(params[:variables])
     query = params[:query]
     operation_name = params[:operationName]
@@ -14,8 +32,9 @@ class GraphqlController < ApplicationController
     }
     result = ApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
-  rescue => e
+  rescue StandardError => e
     raise e unless Rails.env.development?
+
     handle_error_in_development e
   end
 
