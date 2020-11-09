@@ -17,11 +17,12 @@ module Mutations
         new_user.last_name = facebook_user['last_name']
       end
 
-      token = AuthToken.create!(user: user)
+      auth_token = AuthToken.create!(user: user)
 
+      context[:auth_token] = auth_token
       context[:current_user] = user
 
-      { user: user, token: token.to_jwt, errors: [] }
+      { user: user, token: auth_token.to_jwt, errors: [] }
     rescue Koala::Facebook::APIError => e
       raise GraphQL::ExecutionError, e.fb_error_message
     end
