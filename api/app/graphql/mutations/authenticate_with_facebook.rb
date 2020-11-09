@@ -21,7 +21,7 @@ module Mutations
 
       context[:current_user] = user
 
-      { user: user, token: token, errors: [] }
+      { user: user, token: token.to_jwt, errors: [] }
     rescue Koala::Facebook::APIError => e
       raise GraphQL::ExecutionError, e.fb_error_message
     end

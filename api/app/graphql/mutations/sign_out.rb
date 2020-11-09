@@ -2,8 +2,6 @@
 
 module Mutations
   class SignOut < BaseMutation
-    include JsonWebToken
-
     graphql_name 'SignOut'
 
     argument :token, String, required: true
@@ -11,14 +9,9 @@ module Mutations
     field :token, String, null: true
 
     def resolve(args)
-      decoded_token = decode_token(args[:token])
-      raise GraphQL::ExecutionError, 'Invalid token' unless decoded_token.present?
+      AuthToken.find_by_jwt(args[:token])&.destroy
 
-      token_id = decoded_token[0]['id']
-      raise GraphQL::ExecutionError, 'Invalid token' unless token_id.present?
-
-      AuthToken.find_by_id(token_id)&.destroy
-
+      context[:auth_token] = nil
       context[:current_user] = nil
 
       { token: nil, errors: [] }
