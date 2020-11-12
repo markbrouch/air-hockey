@@ -7,10 +7,9 @@ class GraphqlController < ApplicationController
   # protect_from_forgery with: :null_session
 
   def auth_token
-    return unless auth_header
+    return unless bearer_token
 
-    jwt = auth_header.split(' ')[1]
-    AuthToken.find_by_jwt(jwt)
+    AuthToken.find_by_jwt(bearer_token)
   end
 
   def current_user
