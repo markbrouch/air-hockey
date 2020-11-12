@@ -4,9 +4,9 @@ module Types
 
     implements GraphQL::Types::Relay::Node
 
-    field :firstName, String, null: false, hash_key: :first_name
+    field :first_name, String, null: false, hash_key: :first_name
 
-    field :lastName, String, null: false, hash_key: :last_name
+    field :last_name, String, null: false, hash_key: :last_name
 
     field :email, String, null: false
   end
