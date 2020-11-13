@@ -197,6 +197,8 @@ GEM
       parser (>= 2.7.1.5)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
+    shoulda-matchers (4.4.1)
+      activesupport (>= 4.2.0)
     solargraph (0.39.17)
       backport (~> 1.1)
       benchmark
@@ -252,6 +254,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.4)
   rspec-rails
+  shoulda-matchers
   solargraph
   spring
   spring-watcher-listen (~> 2.0.0)
