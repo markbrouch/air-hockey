@@ -28,7 +28,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # gem 'rack-cors'
 
 group :development, :test do
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'pry'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -42,11 +45,11 @@ group :development do
   gem 'graphql_playground-rails'
 end
 
+gem 'graphql', '~> 1.11'
+
+gem 'jwt', '~> 2.2'
+
+gem 'koala', '~> 3.0'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "graphql", "~> 1.11"
-
-gem "koala", "~> 3.0"
-
-gem "jwt", "~> 2.2"
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
